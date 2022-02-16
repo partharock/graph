@@ -1,0 +1,66 @@
+void infector(int x,int y,int n,int m,int &count,vector<vector<int>> &hospital)
+{
+    if(x-1>=0 )
+    {
+        if(hospital[x-1][y]==1){
+          hospital[x-1][y]=2;  
+            count--;
+        }
+        
+    }
+    if(y-1>=0)
+    {
+        if(hospital[x][y-1]==1){
+            hospital[x][y-1]=2;
+            count--;
+        }
+    }
+     if(x+1<n)
+    {
+        if(hospital[x+1][y]==1){
+            hospital[x+1][y]=2;
+            count--;
+        }
+    }
+    if(y+1<m)
+    {
+        if(hospital[x][y+1]==1){
+            hospital[x][y+1]=2;
+            count--;
+        }
+    }
+}
+    int helpaterp(vector<vector<int>> hospital)
+    {    int count=0;
+    int ans=0;
+        int n=hospital.size();
+        int m=hospital[0].size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(hospital[i][j]==1)
+                    count++;
+            }
+        }
+        while(count!=0)
+        {
+            vector<vector<int> > temp=hospital;
+            int test=count;
+          for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(hospital[i][j]==2)
+                  infector(i,j,n,m,count,temp);
+            }
+        }
+        ans++;
+       if(test==count and count!=0)
+       return -1;
+       
+       hospital=temp;
+        }
+        return ans;
+        //code here
+    }
